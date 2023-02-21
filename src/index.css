@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -5,15 +11,123 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: lightgray;
+  min-height: 100vw;
 }
 
-h1 {
-  background-blend-mode: difference;
-  color: yellowgreen;
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 80%;
+  max-width: 600px;
+  max-height: 80%;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.682);
 }
 
-p {
-  color: yellowgreen;
-  font-size: 1rem;
-  font-weight: 500;
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+  padding-block: 15px;
+  padding-inline-end: 10px;
+}
+
+.todo-header-text {
+  padding-inline: 10px;
+  text-transform: capitalize;
+}
+
+#header-btn {
+  padding-right: 10px;
+  width: 15px;
+  height: 15px;
+  background-image: url(./sync-svgrepo-com.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  outline: none;
+}
+
+#form {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline-end: 10px;
+}
+
+#todo-input {
+  width: 90%;
+  outline: none;
+  border: none;
+  padding: 20px 10px;
+}
+
+#enter-input {
+  width: 10px;
+  height: 10px;
+  background-image: url(./arrow-turn-down-left-svgrepo-com.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+}
+
+.todo-list-wrap {
+  padding: 0;
+}
+
+.todo-list-wrap li {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px;
+  text-decoration: none;
+  list-style: none;
+  border-bottom: 1px lightgrey solid;
+  position: relative;
+}
+
+.todo-list-wrap li::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.todo-list-wrap li::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 30px;
+  background-image: url(./menu-vertical-svgrepo-com.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.todo-list-wrap li::before:focus {
+  background-color: black;
+}
+
+.clear-completed {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
