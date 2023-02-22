@@ -1,24 +1,45 @@
 import './index.css';
 
-const todoListTasks = [
-  {
-    description: 'Wash the dishes',
-    isCompleted: false,
-    taskIndex: null,
-  },
-  {
-    description: 'Clear the room',
-    isCompleted: false,
-    taskIndex: null,
-  },
-  {
-    description: 'Buy groceries',
-    isCompleted: false,
-    taskIndex: null,
-  },
-];
+class TodoListData {
+  constructor() {
+    this.todoListTasks = [];
+  }
 
+  addTask(task) {
+    task.taskIndex = this.todoListTasks.length;
+    this.todoListTasks.push(task);
+  }
+
+  removeTask(taskIndex) {
+    this.todoListTasks.filter((task) => task.taskIndex !== taskIndex);
+  }
+
+  renderList(todoListWrapperElement, drag, drop, allowDrop) {
+    todoListWrapperElement.innerHTML = '';
+    this.todoListTasks.forEach((task, i) => {
+      task.taskIndex = i;
+      const label = document.createElement('label');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `checkbox${task.taskIndex}`;
+      const newListTag = document.createElement('input');
+      newListTag.value = task.description;
+      newListTag.className = 'todo-list-item';
+      newListTag.id = `list-item${task.taskIndex}`;
+      newListTag.draggable = true;
+      newListTag.addEventListener('dragstart', drag);
+      newListTag.addEventListener('drop', drop);
+      newListTag.addEventListener('dragover', allowDrop);
+      label.append(checkbox, newListTag);
+      todoListWrapperElement.appendChild(label);
+    });
+  }
+}
+
+const todoListData = new TodoListData();
 const todoListWrapperElement = document.getElementById('todo-list-wrap');
+const formElement = document.getElementById('form');
+const inputElement = document.getElementById('todo-input');
 
 const drag = (event) => {
   event.dataTransfer.setData('dragElementId', event.target.id);
@@ -34,15 +55,15 @@ const drop = (event) => {
     const draggableIndex = Array.from(todoListWrapperElement.children).indexOf(draggableElement);
 
     // Swap the task elements in the array
-    const temp = todoListTasks[dropTargetIndex];
-    todoListTasks[dropTargetIndex] = todoListTasks[draggableIndex];
-    todoListTasks[draggableIndex] = temp;
+    const temp = todoListData.todoListTasks[dropTargetIndex];
+    todoListData.todoListTasks[dropTargetIndex] = todoListData.todoListTasks[draggableIndex];
+    todoListData.todoListTasks[draggableIndex] = temp;
 
     // Swap the task elements on the page
     todoListWrapperElement.insertBefore(draggableElement, dropTarget);
 
     // Update the taskIndex property of the tasks
-    todoListTasks.forEach((task, i) => {
+    todoListData.todoListTasks.forEach((task, i) => {
       task.taskIndex = i;
     });
   }
@@ -52,15 +73,15 @@ const allowDrop = (event) => {
   event.preventDefault();
 };
 
-todoListTasks.forEach((task, i) => {
-  task.taskIndex = i;
-  const newListTag = document.createElement('li');
-  newListTag.textContent = task.description;
-  newListTag.className = 'todo-list-item';
-  newListTag.id = `list-item${task.taskIndex}`;
-  newListTag.draggable = true;
-  newListTag.addEventListener('dragstart', drag);
-  newListTag.addEventListener('drop', drop);
-  newListTag.addEventListener('dragover', allowDrop);
-  todoListWrapperElement.appendChild(newListTag);
+formElement.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const newTask = {
+    description: inputElement.value,
+    isCompleted: false,
+    taskIndex: null,
+  };
+  todoListData.addTask(newTask);
+  todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
 });
+
+todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
