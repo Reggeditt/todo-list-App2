@@ -80,6 +80,11 @@ main {
   padding: 0;
 }
 
+#drop-box {
+  width: 100%;
+  height: 50px;
+}
+
 .todo-list-wrap li {
   width: 100%;
   box-sizing: border-box;
