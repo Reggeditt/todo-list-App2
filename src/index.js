@@ -18,20 +18,24 @@ class TodoListData {
     todoListWrapperElement.innerHTML = '';
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i;
-      const label = document.createElement('label');
+
+      /* create elements for each task which includes a checkbox,
+      input field and a delete button nested in a list tag */
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.id = `checkbox${task.taskIndex}`;
-      const newListTag = document.createElement('input');
-      newListTag.value = task.description;
+      const listDescription = document.createElement('input');
+      listDescription.type = 'text';
+      listDescription.value = task.description;
+      const newListTag = document.createElement('li');
       newListTag.className = 'todo-list-item';
       newListTag.id = `list-item${task.taskIndex}`;
       newListTag.draggable = true;
       newListTag.addEventListener('dragstart', drag);
       newListTag.addEventListener('drop', drop);
       newListTag.addEventListener('dragover', allowDrop);
-      label.append(checkbox, newListTag);
-      todoListWrapperElement.appendChild(label);
+      newListTag.append(checkbox, listDescription);
+      todoListWrapperElement.appendChild(newListTag);
     });
   }
 }
