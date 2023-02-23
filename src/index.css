@@ -112,7 +112,7 @@ main {
   display: none;
   width: 25px;
   height: 25px;
-  background: url(https://www.svgrepo.com/show/502614/delete.svg) no-repeat center center/cover;
+  background: url(./delete-svgrepo-com.svg) no-repeat center center/cover;
   border: none;
   cursor: pointer;
 }
