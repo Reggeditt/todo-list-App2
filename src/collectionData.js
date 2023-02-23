@@ -7,12 +7,19 @@ export default class TodoListData {
   addTask(task) {
     task.taskIndex = this.todoListTasks.length + 1;
     this.todoListTasks.push(task);
-    console.log(this.todoListTasks);
     this.updateStorage();
   }
 
   removeTask(index) {
     this.todoListTasks = this.todoListTasks.filter((task) => task.taskIndex !== index);
+    this.todoListTasks.forEach((task, i) => {
+      task.taskIndex = i + 1;
+    });
+    this.updateStorage();
+  }
+
+  clearCompletedTasks() {
+    this.todoListTasks = this.todoListTasks.filter((task) => task.isCompleted === false);
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i + 1;
     });
