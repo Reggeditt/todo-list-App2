@@ -86,24 +86,34 @@ main {
 }
 
 .todo-list-wrap li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 40px;
+  padding-inline: 10px;
   text-decoration: none;
   list-style: none;
   border-bottom: 1px lightgrey solid;
   position: relative;
 }
 
-.todo-list-wrap li::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border: 1px solid black;
+
+
+.todo-list-item-description {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 10px;
+}
+
+.todo-list-item-remove {
+  display: none;
+  width: 25px;
+  height: 25px;
+  background: url(https://www.svgrepo.com/show/502614/delete.svg) no-repeat center center/cover;
+  border: none;
   cursor: pointer;
 }
 
@@ -119,11 +129,7 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  cursor: pointer;
-}
-
-.todo-list-wrap li::before:focus {
-  background-color: black;
+  cursor: move;
 }
 
 .clear-completed {
