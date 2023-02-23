@@ -11,8 +11,11 @@ class TodoListData {
     this.todoListTasks.push(task);
   }
 
-  removeTask(taskIndex) {
-    this.todoListTasks.filter((task) => task.taskIndex !== taskIndex);
+  removeTask(index) {
+    this.todoListTasks = this.todoListTasks.filter((task) => task.taskIndex !== index);
+    this.todoListTasks.forEach((task, i) => {
+      task.taskIndex = i;
+    });
   }
 
   renderList(todoListWrapperElement, drag, drop, allowDrop) {
@@ -33,7 +36,6 @@ class TodoListData {
       const removeBtn = document.createElement('button');
       removeBtn.className = 'todo-list-item-remove';
       removeBtn.dataset.id = task.taskIndex;
-      removeBtn.addEventListener('click', () => console.log('finally'));
       const newListTag = document.createElement('li');
       newListTag.className = 'todo-list-item';
       newListTag.id = `list-item${task.taskIndex}`;
@@ -68,36 +70,37 @@ class TodoListData {
     );
     const inputFields = Array.from(listDescriptionArr);
     inputFields.forEach((input, i) => {
-      input.addEventListener('focus', () => {
-        todoListWrapperElement.children[i].style.backgroundColor = 'yellow';
-        todoListWrapperElement.children[i].children[2].style.display = 'block';
-        input.style.backgroundColor = 'yellow';
-        todoListWrapperChildren[i].style.setProperty('--before', 'none');
-      });
-
-      input.addEventListener('focusout', () => {
-        todoListWrapperElement.children[i].style.backgroundColor = 'white';
-        // todoListWrapperElement.children[i].children[2].style.display = 'none';
-        input.style.backgroundColor = 'white';
-        todoListWrapperChildren[i].style.setProperty('--before', 'block');
+      input.addEventListener('click', () => {
+        if (document.activeElement === input) {
+          todoListWrapperElement.children[i].style.backgroundColor = 'yellow';
+          todoListWrapperElement.children[i].children[2].style.display = 'block';
+          input.style.backgroundColor = 'yellow';
+          todoListWrapperChildren[i].style.setProperty('--before', 'none');
+        } else {
+          todoListWrapperElement.children[i].style.backgroundColor = 'white';
+          todoListWrapperElement.children[i].children[2].style.display = 'none';
+          input.style.backgroundColor = 'white';
+          todoListWrapperChildren[i].style.setProperty('--before', 'block');
+        }
       });
 
       input.addEventListener('change', () => {
         this.todoListTasks[i].description = input.value;
         todoListWrapperElement.children[i].style.backgroundColor = 'white';
-        // todoListWrapperElement.children[i].children[2].style.display = 'none';
+        todoListWrapperElement.children[i].children[2].style.display = 'none';
         input.style.backgroundColor = 'white';
-        input.focus = false;
         todoListWrapperChildren[i].style.setProperty('--before', 'block');
+        document.getElementById('todo-input').focus();
       });
     });
 
     // add event listener to delete button to remove task from the list
-    this.taskRemoveButtons.forEach((button, i) => {
-      console.log(button);
+    this.taskRemoveButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('yes we are listening', i);
+        this.removeTask(+e.target.dataset.id);
+        this.renderList(todoListWrapperElement, drag, drop, allowDrop);
+        console.log(this.todoListTasks);
       });
     });
   }
@@ -108,6 +111,7 @@ const todoListWrapperElement = document.getElementById('todo-list-wrap');
 const formElement = document.getElementById('form');
 const inputElement = document.getElementById('todo-input');
 
+// implement drag and drop functionality
 const drag = (event) => {
   event.dataTransfer.setData('dragElementId', event.target.id);
 };
@@ -127,8 +131,7 @@ const drop = (event) => {
 
     // Swap the task elements in the array
     const temp = todoListData.todoListTasks[dropTargetIndex];
-    todoListData.todoListTasks[dropTargetIndex] =
-      todoListData.todoListTasks[draggableIndex];
+    todoListData.todoListTasks[dropTargetIndex] = todoListData.todoListTasks[draggableIndex];
     todoListData.todoListTasks[draggableIndex] = temp;
 
     // Swap the task elements on the page
@@ -145,6 +148,7 @@ const allowDrop = (event) => {
   event.preventDefault();
 };
 
+// listen for submit of new task
 formElement.addEventListener('submit', (event) => {
   event.preventDefault();
   const newTask = {
@@ -156,4 +160,5 @@ formElement.addEventListener('submit', (event) => {
   todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
 });
 
+// render the task list on page load
 todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
