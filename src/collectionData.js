@@ -26,6 +26,12 @@ export default class TodoListData {
     this.updateStorage();
   }
 
+  resetList = () => {
+    this.todoListTasks = [];
+    this.updateStorage();
+    window.location.reload();
+  }
+
   renderList = (todoListWrapperElement, drag, drop, allowDrop) => {
     todoListWrapperElement.innerHTML = '';
     this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList')) || [];

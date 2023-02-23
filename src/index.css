@@ -39,10 +39,10 @@ main {
   text-transform: capitalize;
 }
 
-#header-btn {
+#reset-btn {
   padding-right: 10px;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   background-image: url(./sync-svgrepo-com.svg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -68,8 +68,8 @@ main {
 }
 
 #enter-input {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background-image: url(./arrow-turn-down-left-svgrepo-com.svg);
   background-size: cover;
   background-repeat: no-repeat;

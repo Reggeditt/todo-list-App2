@@ -6,6 +6,7 @@ const todoListWrapperElement = document.getElementById('todo-list-wrap');
 const formElement = document.getElementById('form');
 const inputElement = document.getElementById('todo-input');
 const clearCompletedBtnElement = document.getElementById('clear-completed');
+const resetButtonElement = document.getElementById('reset-btn');
 
 // implement drag and drop functionality
 const drag = (event) => {
@@ -63,4 +64,8 @@ todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
 clearCompletedBtnElement.addEventListener('click', () => {
   todoListData.clearCompletedTasks();
   todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
+});
+
+resetButtonElement.addEventListener('click', () => {
+  todoListData.resetList();
 });
