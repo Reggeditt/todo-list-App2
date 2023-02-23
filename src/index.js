@@ -30,9 +30,10 @@ class TodoListData {
       listDescription.type = 'text';
       listDescription.className = 'todo-list-item-description';
       listDescription.value = task.description;
-      this.taskRemoveButtons[i] = document.createElement('button');
-      this.taskRemoveButtons[i].className = 'todo-list-item-remove';
-      this.taskRemoveButtons[i].dataset.id = task.taskIndex;
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'todo-list-item-remove';
+      removeBtn.dataset.id = task.taskIndex;
+      removeBtn.addEventListener('click', () => console.log('finally'));
       const newListTag = document.createElement('li');
       newListTag.className = 'todo-list-item';
       newListTag.id = `list-item${task.taskIndex}`;
@@ -42,8 +43,9 @@ class TodoListData {
       newListTag.addEventListener('dragstart', drag);
       newListTag.addEventListener('drop', drop);
       newListTag.addEventListener('dragover', allowDrop);
-      newListTag.append(checkbox, listDescription, this.taskRemoveButtons[i]);
+      newListTag.append(checkbox, listDescription, removeBtn);
       todoListWrapperElement.appendChild(newListTag);
+      this.taskRemoveButtons.push(removeBtn);
     });
 
     // toggle isCompleted to true/false when checkbox is checked/unchecked
@@ -61,7 +63,9 @@ class TodoListData {
     });
 
     // add event listener to input field to toggle styling and update task description
-    const listDescriptionArr = document.getElementsByClassName('todo-list-item-description');
+    const listDescriptionArr = document.getElementsByClassName(
+      'todo-list-item-description',
+    );
     const inputFields = Array.from(listDescriptionArr);
     inputFields.forEach((input, i) => {
       input.addEventListener('focus', () => {
@@ -73,7 +77,7 @@ class TodoListData {
 
       input.addEventListener('focusout', () => {
         todoListWrapperElement.children[i].style.backgroundColor = 'white';
-        todoListWrapperElement.children[i].children[2].style.display = 'none';
+        // todoListWrapperElement.children[i].children[2].style.display = 'none';
         input.style.backgroundColor = 'white';
         todoListWrapperChildren[i].style.setProperty('--before', 'block');
       });
@@ -81,7 +85,7 @@ class TodoListData {
       input.addEventListener('change', () => {
         this.todoListTasks[i].description = input.value;
         todoListWrapperElement.children[i].style.backgroundColor = 'white';
-        todoListWrapperElement.children[i].children[2].style.display = 'none';
+        // todoListWrapperElement.children[i].children[2].style.display = 'none';
         input.style.backgroundColor = 'white';
         input.focus = false;
         todoListWrapperChildren[i].style.setProperty('--before', 'block');
@@ -90,7 +94,9 @@ class TodoListData {
 
     // add event listener to delete button to remove task from the list
     this.taskRemoveButtons.forEach((button, i) => {
-      button.addEventListener('click', () => {
+      console.log(button);
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
         console.log('yes we are listening', i);
       });
     });
@@ -112,12 +118,17 @@ const drop = (event) => {
   const dropTarget = event.target;
   if (dropTarget.tagName === 'LI') {
     const draggableElement = document.getElementById(data);
-    const dropTargetIndex = Array.from(todoListWrapperElement.children).indexOf(dropTarget);
-    const draggableIndex = Array.from(todoListWrapperElement.children).indexOf(draggableElement);
+    const dropTargetIndex = Array.from(todoListWrapperElement.children).indexOf(
+      dropTarget,
+    );
+    const draggableIndex = Array.from(todoListWrapperElement.children).indexOf(
+      draggableElement,
+    );
 
     // Swap the task elements in the array
     const temp = todoListData.todoListTasks[dropTargetIndex];
-    todoListData.todoListTasks[dropTargetIndex] = todoListData.todoListTasks[draggableIndex];
+    todoListData.todoListTasks[dropTargetIndex] =
+      todoListData.todoListTasks[draggableIndex];
     todoListData.todoListTasks[draggableIndex] = temp;
 
     // Swap the task elements on the page
