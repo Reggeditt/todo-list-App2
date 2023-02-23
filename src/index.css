@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: lightgray;
-  min-height: 100vw;
+  min-height: 100vh;
 }
 
 main {
@@ -64,6 +64,7 @@ main {
   outline: none;
   border: none;
   padding: 20px 10px;
+  background-color: white;
 }
 
 #enter-input {
@@ -80,45 +81,56 @@ main {
   padding: 0;
 }
 
+#drop-box {
+  width: 100%;
+  height: 50px;
+}
+
 .todo-list-wrap li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 40px;
+  padding-inline: 10px;
   text-decoration: none;
   list-style: none;
   border-bottom: 1px lightgrey solid;
   position: relative;
 }
 
-.todo-list-wrap li::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border: 1px solid black;
+.todo-list-item-description {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+.todo-list-item-remove {
+  display: none;
+  width: 25px;
+  height: 25px;
+  background: url(https://www.svgrepo.com/show/502614/delete.svg) no-repeat center center/cover;
+  border: none;
   cursor: pointer;
 }
 
 .todo-list-wrap li::after {
   content: "";
+  display: var(--before);
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 10px;
+  width: 30px;
   height: 30px;
   background-image: url(./menu-vertical-svgrepo-com.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  cursor: pointer;
-}
-
-.todo-list-wrap li::before:focus {
-  background-color: black;
+  cursor: move;
 }
 
 .clear-completed {
