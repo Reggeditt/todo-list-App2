@@ -68,7 +68,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo is not yet available]()
+- [Live Demo link](https://reggeditt.github.io/todo-list-App2/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
