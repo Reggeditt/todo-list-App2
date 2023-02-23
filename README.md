@@ -93,8 +93,8 @@ After you're finished please remove all the comments and instructions!
 
 ### Key Features <a name="key-features"></a>
 
-- **[displays a number of tasks in a todo list on the page]**
-<!-- - **[key_feature_2]** -->
+- **[Allows users to create a list of to-do tasks]**
+- **[Users are able to add, edit, and remove tasks on the list]**
 <!-- - **[key_feature_3]** -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -193,8 +193,6 @@ Example:
 
 ## 👥 Authors <a name="authors"></a>
 
-> Mention all of the collaborators of this project.
-
 👤 **Kodjo-Sarso Tetteh**
 
 - GitHub: [@Reggeditt](https://github.com/Reggeditt)
@@ -213,11 +211,9 @@ Example:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-> Describe 1 - 3 features you will add to the project.
-
-- [ ] **[allow users to type in custom tasks]**
-- [ ] **[dynamically display task inputs from users]**
-- [ ] **[check and uncheck tasks in the todo list]**
+- [ ] **[ transitions and animations]**
+- [ ] **[Add time period allocated to each task]**
+- [ ] **[Multiple lists with sublists]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -268,7 +264,5 @@ I would like to thank microverse inc. for this awesome project.
 ## 📝 License <a name="license"></a>
 
 This project is [MIT](./LICENSE) licensed.
-
-_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
