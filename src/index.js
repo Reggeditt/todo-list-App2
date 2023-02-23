@@ -53,6 +53,7 @@ formElement.addEventListener('submit', (event) => {
   };
   todoListData.addTask(newTask);
   todoListData.renderList(todoListWrapperElement, drag, drop, allowDrop);
+  inputElement.value = '';
 });
 
 // render the task list on page load

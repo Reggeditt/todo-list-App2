@@ -5,15 +5,16 @@ export default class TodoListData {
   }
 
   addTask(task) {
-    task.taskIndex = this.todoListTasks.length;
+    task.taskIndex = this.todoListTasks.length + 1;
     this.todoListTasks.push(task);
+    console.log(this.todoListTasks);
     this.updateStorage();
   }
 
   removeTask(index) {
     this.todoListTasks = this.todoListTasks.filter((task) => task.taskIndex !== index);
     this.todoListTasks.forEach((task, i) => {
-      task.taskIndex = i;
+      task.taskIndex = i + 1;
     });
     this.updateStorage();
   }
@@ -21,7 +22,7 @@ export default class TodoListData {
   renderList(todoListWrapperElement, drag, drop, allowDrop) {
     todoListWrapperElement.innerHTML = '';
     this.todoListTasks.forEach((task, i) => {
-      task.taskIndex = i;
+      task.taskIndex = i + 1;
 
       /* create elements for each task which includes a checkbox,
       input field and a delete button nested in a list tag */
@@ -57,9 +58,11 @@ export default class TodoListData {
         if (child.children[0].checked) {
           child.children[1].style.textDecoration = 'line-through';
           this.todoListTasks[index].isCompleted = true;
+          this.updateStorage();
         } else {
           child.children[1].style.textDecoration = 'none';
           this.todoListTasks[index].isCompleted = false;
+          this.updateStorage();
         }
       });
     });
@@ -89,6 +92,7 @@ export default class TodoListData {
         input.style.backgroundColor = 'white';
         todoListWrapperChildren[i].style.setProperty('--before', 'block');
         document.getElementById('todo-input').focus();
+        this.updateStorage();
       });
     });
 
