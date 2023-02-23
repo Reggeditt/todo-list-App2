@@ -64,6 +64,7 @@ main {
   outline: none;
   border: none;
   padding: 20px 10px;
+  background-color: white;
 }
 
 #enter-input {
@@ -106,6 +107,7 @@ main {
   outline: none;
   width: 100%;
   padding: 10px;
+  background-color: white;
 }
 
 .todo-list-item-remove {
@@ -119,11 +121,12 @@ main {
 
 .todo-list-wrap li::after {
   content: "";
+  display: var(--before);
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 10px;
+  width: 30px;
   height: 30px;
   background-image: url(./menu-vertical-svgrepo-com.svg);
   background-size: cover;

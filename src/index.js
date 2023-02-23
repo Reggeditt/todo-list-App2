@@ -3,6 +3,7 @@ import './index.css';
 class TodoListData {
   constructor() {
     this.todoListTasks = [];
+    this.taskRemoveButtons = [];
   }
 
   addTask(task) {
@@ -29,9 +30,9 @@ class TodoListData {
       listDescription.type = 'text';
       listDescription.className = 'todo-list-item-description';
       listDescription.value = task.description;
-      const taskRemoveBtn = document.createElement('button');
-      taskRemoveBtn.className = 'todo-list-item-remove';
-      taskRemoveBtn.dataset.id = task.taskIndex;
+      this.taskRemoveButtons[i] = document.createElement('button');
+      this.taskRemoveButtons[i].className = 'todo-list-item-remove';
+      this.taskRemoveButtons[i].dataset.id = task.taskIndex;
       const newListTag = document.createElement('li');
       newListTag.className = 'todo-list-item';
       newListTag.id = `list-item${task.taskIndex}`;
@@ -41,7 +42,7 @@ class TodoListData {
       newListTag.addEventListener('dragstart', drag);
       newListTag.addEventListener('drop', drop);
       newListTag.addEventListener('dragover', allowDrop);
-      newListTag.append(checkbox, listDescription, taskRemoveBtn);
+      newListTag.append(checkbox, listDescription, this.taskRemoveButtons[i]);
       todoListWrapperElement.appendChild(newListTag);
     });
 
@@ -60,34 +61,37 @@ class TodoListData {
     });
 
     // add event listener to input field to toggle styling and update task description
-    const inputFields = Array.from(document.getElementsByClassName('todo-list-item-description'));
+    const listDescriptionArr = document.getElementsByClassName('todo-list-item-description');
+    const inputFields = Array.from(listDescriptionArr);
     inputFields.forEach((input, i) => {
       input.addEventListener('focus', () => {
         todoListWrapperElement.children[i].style.backgroundColor = 'yellow';
         todoListWrapperElement.children[i].children[2].style.display = 'block';
         input.style.backgroundColor = 'yellow';
+        todoListWrapperChildren[i].style.setProperty('--before', 'none');
       });
+
       input.addEventListener('focusout', () => {
         todoListWrapperElement.children[i].style.backgroundColor = 'white';
         todoListWrapperElement.children[i].children[2].style.display = 'none';
         input.style.backgroundColor = 'white';
+        todoListWrapperChildren[i].style.setProperty('--before', 'block');
       });
+
       input.addEventListener('change', () => {
         this.todoListTasks[i].description = input.value;
         todoListWrapperElement.children[i].style.backgroundColor = 'white';
         todoListWrapperElement.children[i].children[2].style.display = 'none';
         input.style.backgroundColor = 'white';
         input.focus = false;
+        todoListWrapperChildren[i].style.setProperty('--before', 'block');
       });
     });
 
     // add event listener to delete button to remove task from the list
-    const removeBtns = Array.from(document.getElementsByClassName('todo-list-item-remove'));
-    removeBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const taskIndex = btn.dataset.id;
-        console.log('taskIndex: ', taskIndex);
-        this.removeTask(taskIndex);
+    this.taskRemoveButtons.forEach((button, i) => {
+      button.addEventListener('click', () => {
+        console.log('yes we are listening', i);
       });
     });
   }
