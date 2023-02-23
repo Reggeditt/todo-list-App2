@@ -2,13 +2,14 @@ import './index.css';
 
 class TodoListData {
   constructor() {
-    this.todoListTasks = [];
+    this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList')) || [];
     this.taskRemoveButtons = [];
   }
 
   addTask(task) {
     task.taskIndex = this.todoListTasks.length;
     this.todoListTasks.push(task);
+    this.updateStorage();
   }
 
   removeTask(index) {
@@ -16,6 +17,7 @@ class TodoListData {
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i;
     });
+    this.updateStorage();
   }
 
   renderList(todoListWrapperElement, drag, drop, allowDrop) {
@@ -65,9 +67,7 @@ class TodoListData {
     });
 
     // add event listener to input field to toggle styling and update task description
-    const listDescriptionArr = document.getElementsByClassName(
-      'todo-list-item-description',
-    );
+    const listDescriptionArr = document.getElementsByClassName('todo-list-item-description');
     const inputFields = Array.from(listDescriptionArr);
     inputFields.forEach((input, i) => {
       input.addEventListener('click', () => {
@@ -103,6 +103,11 @@ class TodoListData {
         console.log(this.todoListTasks);
       });
     });
+  }
+
+  // Update local storage
+  updateStorage() {
+    localStorage.setItem('todoList', JSON.stringify(this.todoListTasks));
   }
 }
 
