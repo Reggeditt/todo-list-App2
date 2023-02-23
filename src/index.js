@@ -100,7 +100,6 @@ class TodoListData {
         e.preventDefault();
         this.removeTask(+e.target.dataset.id);
         this.renderList(todoListWrapperElement, drag, drop, allowDrop);
-        console.log(this.todoListTasks);
       });
     });
   }
