@@ -4,13 +4,13 @@ export default class TodoListData {
     this.taskRemoveButtons = [];
   }
 
-  addTask(task) {
+  addTask = (task) => {
     task.taskIndex = this.todoListTasks.length + 1;
     this.todoListTasks.push(task);
     this.updateStorage();
   }
 
-  removeTask(index) {
+  removeTask = (index) => {
     this.todoListTasks = this.todoListTasks.filter((task) => task.taskIndex !== index);
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i + 1;
@@ -18,7 +18,7 @@ export default class TodoListData {
     this.updateStorage();
   }
 
-  clearCompletedTasks() {
+  clearCompletedTasks = () => {
     this.todoListTasks = this.todoListTasks.filter((task) => task.isCompleted === false);
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i + 1;
@@ -26,7 +26,7 @@ export default class TodoListData {
     this.updateStorage();
   }
 
-  renderList(todoListWrapperElement, drag, drop, allowDrop) {
+  renderList = (todoListWrapperElement, drag, drop, allowDrop) => {
     todoListWrapperElement.innerHTML = '';
     this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList')) || [];
     this.todoListTasks.forEach((task, i) => {
@@ -115,7 +115,7 @@ export default class TodoListData {
   }
 
   // Update local storage
-  updateStorage() {
+  updateStorage = () => {
     localStorage.setItem('todoList', JSON.stringify(this.todoListTasks));
     this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList'));
   }
