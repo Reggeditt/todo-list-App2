@@ -28,6 +28,7 @@ export default class TodoListData {
 
   renderList(todoListWrapperElement, drag, drop, allowDrop) {
     todoListWrapperElement.innerHTML = '';
+    this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList')) || [];
     this.todoListTasks.forEach((task, i) => {
       task.taskIndex = i + 1;
 
@@ -116,5 +117,6 @@ export default class TodoListData {
   // Update local storage
   updateStorage() {
     localStorage.setItem('todoList', JSON.stringify(this.todoListTasks));
+    this.todoListTasks = JSON.parse(window.localStorage.getItem('todoList'));
   }
 }
