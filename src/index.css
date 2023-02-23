@@ -103,9 +103,11 @@ main {
 .todo-list-item-description {
   border: none;
   outline: none;
-  width: 100%;
+  width: 90%;
   padding: 10px;
-  background-color: white;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  font-weight: 800;
 }
 
 .todo-list-item-remove {
