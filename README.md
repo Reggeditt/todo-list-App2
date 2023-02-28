@@ -32,7 +32,7 @@
 
 # 📖 [To-Do List App] <a name="about-project"></a>
 
-**[To-Do List App]** is an app that allows users to enter a list of tasks. These tasks are then displayed in a todo-list on the page.
+**[To-Do List App]** is a website that allows users to enter a list of tasks. These tasks are then displayed in a todo-list on the page. Built with JavaScript.
 
 ## 🛠 Built With <a name="built-with"></a>
 
